@@ -1,0 +1,110 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:AppStudio.Controls"
+    xmlns:html2xaml="using:AppStudio.Controls.Html2Xaml"
+    xmlns:commands="using:AppStudio.Commands">
+
+    <!-- ListPhotoLeft -->
+    <DataTemplate x:Key="RssList">
+        <Grid MinWidth="480">
+            <GridView ItemsSource="{Binding PreviewItems}" SelectionMode="None" IsSwipeEnabled="False" IsItemClickEnabled="True" commands:ItemClickCommand.Command="{Binding ItemClickCommand}"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ItemTemplate="{StaticResource RssItem}">
+            </GridView>
+            <ProgressBar Height="40" Foreground="White" VerticalAlignment="Top" IsIndeterminate="True" Visibility="{Binding ProgressBarVisibility}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RssListSnapped">
+        <Grid Width="230">
+            <GridView ItemsSource="{Binding PreviewItems}" SelectionMode="None" IsSwipeEnabled="False" IsItemClickEnabled="True" commands:ItemClickCommand.Command="{Binding ItemClickCommand}"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ItemTemplate="{StaticResource RssItemSnapped}">
+            </GridView>
+            <ProgressBar Height="40" Foreground="White" VerticalAlignment="Top" IsIndeterminate="True" Visibility="{Binding ProgressBarVisibility}" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- ListPhotoLeft Item -->
+    <DataTemplate x:Key="RssItem">
+        <Grid Width="480" Height="210">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0, 0, 10, 0" Style="{StaticResource ItemHeaderWrapText}"
+                       MaxHeight="50" VerticalAlignment="Top" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter=140}" />
+            <Image Grid.Row="1" Grid.Column="0" Margin="0, 8" Source="{Binding ImageUrl, Converter={StaticResource ThumbnailConverter}, ConverterParameter=220}"
+                   MaxHeight="110" Stretch="UniformToFill" VerticalAlignment="Top" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="16, 8, 20, 10" Style="{StaticResource ItemSubheaderText}"
+                       MaxHeight="110" VerticalAlignment="Top" Text="{Binding Summary, Converter={StaticResource TextPlainConverter}, ConverterParameter=280}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RssItemSnapped">
+        <Grid Width="220" Height="95">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+          <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0, 0, 10, 0" Style="{StaticResource ItemHeaderWrapTextSnapped}"
+                     MaxHeight="25" VerticalAlignment="Top" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter=140}" />
+          <Image Grid.Row="1" Grid.Column="0" Margin="0, 8" Source="{Binding ImageUrl, Converter={StaticResource ThumbnailConverter}, ConverterParameter=220}"
+                 MaxHeight="50" Stretch="UniformToFill" VerticalAlignment="Top" />
+          <TextBlock Grid.Row="1" Grid.Column="1" Margin="16, 8, 20, 10" Style="{StaticResource ItemSubheaderTextSnapped}"
+                     MaxHeight="50" VerticalAlignment="Top" Text="{Binding Summary, Converter={StaticResource TextPlainConverter}, ConverterParameter=280}" />
+        </Grid>
+    </DataTemplate>
+
+
+    <!-- DetailMultiColumn -->
+    <DataTemplate x:Key="Rss1DetailDetail">    
+        <Grid Margin="12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" Style="{StaticResource HeaderText}" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter = 140}" />
+          
+            <TextBlock Grid.Row="1" Margin="0,12,12,12" VerticalAlignment="Top" Style="{StaticResource ItemHeaderText}" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter=140}" />
+            <Button Grid.Row="2" Margin="0,24,0,12" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageButtonStyle}" Command="{Binding Source={StaticResource ActionCommands}, Path=ShowImage}" CommandParameter="{Binding ImageUrl}">
+              <Viewbox StretchDirection="DownOnly">
+                <Image Source="{Binding ImageUrl}" Stretch="UniformToFill" />
+              </Viewbox>
+            </Button>
+            <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="24" VerticalScrollBarVisibility="Auto">
+              <RichTextBlock Style="{StaticResource Html2XamlStyle}" Margin="0,0,24,0" html2xaml:Properties.Html="{Binding Content}" />
+            </ScrollViewer>
+        </Grid>    
+    </DataTemplate>
+    <DataTemplate x:Key="Rss1DetailDetailSnapped">
+        <Grid Width="230">
+            <StackPanel>
+                <TextBlock Margin="0,0,0,30" Style="{StaticResource HeaderText}" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter = 140}" />
+                <TextBlock Margin="0, 0, 16, 16" Style="{StaticResource ItemHeaderText}" Text="{Binding Title, Converter={StaticResource TextPlainConverter}, ConverterParameter=140}" />
+                <Viewbox MaxHeight="250" StretchDirection="DownOnly">
+                  <Image Source="{Binding ImageUrl}" />
+                </Viewbox>
+                <RichTextBlock Margin="0, 30" Style="{StaticResource Html2XamlStyle}" html2xaml:Properties.Html="{Binding Content}" />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

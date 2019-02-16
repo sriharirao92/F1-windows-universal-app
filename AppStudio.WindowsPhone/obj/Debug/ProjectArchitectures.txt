@@ -1,0 +1,2 @@
+C:\Users\Srihari R\Desktop\App-FormulaOne\AppStudio.Data\AppStudio.Data.csproj;neutral
+C:\Users\Srihari R\Desktop\App-FormulaOne\AppStudio.WindowsPhone\AppStudio.WindowsPhone.csproj;neutral
